@@ -1,0 +1,53 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System.IO.Ports;
+
+public class ArduinoController : MonoBehaviour
+{
+	private SerialPort stream;
+	private string ping = "PING";
+	private string pong = "PONG";
+	
+	void Start () {
+		
+        stream = new SerialPort("COM7", 9600);
+        stream.ReadTimeout = 50;
+        stream.Open();
+        stream.WriteLine(ping);
+	}
+	
+	// Update is called once per frame
+	void Update () {
+
+		if (ReadFromArduino() == pong)
+		{
+			WriteToArduino(ping);
+		}
+	}
+
+    public void WriteToArduino(string message)
+    {
+	    print(message);
+        stream.WriteLine(message); //esto escribe una string al serial port, si hay algun error
+        //lanza una excepción.
+        stream.BaseStream.Flush();
+    }
+
+	public string ReadFromArduino(int timeout = 1)
+	{
+		stream.ReadTimeout = timeout;
+		try
+		{
+			string streamReadline = stream.ReadLine();
+			print(streamReadline);
+			return streamReadline;
+
+		}
+		catch (TimeoutException e)
+		{
+			return null;
+		}
+	}
+}
