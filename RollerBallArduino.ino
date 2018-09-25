@@ -72,13 +72,14 @@ void loop() {
   Gy[0] = gx/G_R;
   Gy[1] = gy/G_R;
 
-  Angle[0] = 0.3 *(Angle[0]+Gy[0]*0.010) + 0.7*Acc[0];
-  Angle[1] = 0.3 *(Angle[1]+Gy[1]*0.010) + 0.7*Acc[1];
+  Angle[0] = 0.1 *(Angle[0]+Gy[0]*0.010) + 0.9*Acc[0];
+  Angle[1] = 0.1 *(Angle[1]+Gy[1]*0.010) + 0.9*Acc[1];
 
   //Serial.print("GY: "); Serial.print(Gy[1]);
 
-  Serial.print("Angle X: "); Serial.print(Angle[0]); Serial.print("\n");
-  Serial.print("Angle Y: "); Serial.print(Angle[1]); Serial.println("\n");
+  Serial.print("Angle_X_:_"); Serial.print(Angle[0]); Serial.println("\n");
+  Serial.print("Angle_Y_:_"); Serial.print(Angle[1]); Serial.println("\n");
+
 
   delay(100);
   // display tab-separated accel/gyro x/y/z values
