@@ -44,12 +44,27 @@ public class PlayerController : MonoBehaviour {
         float x = anglesArduino.x; //left and right
         float y = anglesArduino.y; //forward and backward
 
-        if (Mathf.Abs(x) <= xNoiseMax && Mathf.Abs(y) <= yNoiseMax)
-        {
-            return;
-        }
+		Vector3 force = Vector3.zero;
+		Vector3 angles = Vector3.zero;
+		
+		if (Mathf.Abs(x) > xNoiseMax){
+			//es valido, este x nos sirve.
+			float xForce = x > 0 ? 1 : -1;
+			angles.Set(x, 0, angles.z);
+			force.Set(xForce,0,force.z);
+		}
 
-        rb.AddForce(new Vector3(x, 0, y).normalized * 10f);
+		if (Mathf.Abs(y) > yNoiseMax){
+			float zForce = y > 0 ? 1: -1;
+			angles.Set(angles.x, 0, y);
+			force.Set(force.x, 0, zForce);
+		}
+
+		Vector3 force2 = force.normalized;
+
+		rb.AddForce(force2 * angles.magnitude / 300f, ForceMode.VelocityChange);
+		//rb.AddForce(force2 * angles.magnitude / 10f, ForceMode.);
+        //rb.AddForce(new Vector3(x, 0, y).normalized * 10f);
         //transform.Translate(new Vector3(x, 0, y).normalized / 10f);
 
 	}
