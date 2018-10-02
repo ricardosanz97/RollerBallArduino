@@ -52,20 +52,14 @@ void setup() {
     Serial.println("Testing device connections...");
     Serial.println(accelgyro.testConnection() ? "MPU6050 connection successful" : "MPU6050 connection failed");
 
-
     pinMode(LED_PIN, OUTPUT);
-  //while (!Serial);
-
-  //sCmd.addCommand("PING", pingHandler); //definimos comando "PING",
-  //cuando recibimos este comando de unity, devolvemos un "PONG"
-  
-
 }
 
 void loop() {
-  
-  accelgyro.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
 
+  accelgyro.getMotion6(&ax, &ay, &az, &gx, &gy, &gz); //obtenemos los valores por referencia del acelerometro y del giroscopio
+
+//aplicamos una conversión para que lo que nos devuelva sean angulos naturales.
   Acc[1] = atan(-1*(ax/A_R)/sqrt(pow((ay/A_R),2) + pow((az/A_R),2)))*RAD_TO_DEG;
   Acc[0] = atan((ay/A_R)/sqrt(pow((ax/A_R),2) + pow((az/A_R),2)))*RAD_TO_DEG;
 
@@ -77,11 +71,12 @@ void loop() {
 
   //Serial.print("GY: "); Serial.print(Gy[1]);
 
+//lo enviamos por el serial port con el formato separado por "_" para en Unity poder hacer un Split por la "_".
   Serial.print("Angle_X_:_"); Serial.print(Angle[0]); Serial.println("\n");
   Serial.print("Angle_Y_:_"); Serial.print(Angle[1]); Serial.println("\n");
 
 
-  delay(100);
+  delay(100); //metemos un delay de 0.1 segundos entre cada envio.
   // display tab-separated accel/gyro x/y/z values
   /*
   Serial.print("a/g:\t");
@@ -99,13 +94,6 @@ void loop() {
   Serial.println(gz);
   */
 }
-
-void pingHandler (){
-
-  delay(1000);
-  Serial.println("PONG");
-}
-
 
 //void pingHandler (){
 
