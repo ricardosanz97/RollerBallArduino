@@ -1,0 +1,15 @@
+﻿<Properties StartupConfiguration="{82D14C99-A957-EF11-E88D-9B13D1FC77F3}|">
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/_Completed-Game/Scripts/ArduinoController.cs">
+    <Files>
+      <File FileName="Assets/_Completed-Game/Scripts/ArduinoController.cs" Line="19" Column="3" />
+      <File FileName="Assets/_Completed-Game/Scripts/PlayerController.cs" Line="72" Column="9" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>

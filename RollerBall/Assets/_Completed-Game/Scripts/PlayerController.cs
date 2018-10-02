@@ -40,32 +40,35 @@ public class PlayerController : MonoBehaviour {
 	// Each physics step..
 	void FixedUpdate ()
 	{
-        print(anglesArduino);
-        float x = anglesArduino.x; //left and right
-        float y = anglesArduino.y; //forward and backward
+        //print(anglesArduino);
+        float x = anglesArduino.x; //left and right, a partir de lo que le hemos pasado.
+        float y = anglesArduino.y; //forward and backward, a partir de lo que le hemos pasado.
 
-		Vector3 force = Vector3.zero;
-		Vector3 angles = Vector3.zero;
+		Vector3 force = Vector3.zero;//creamos un vector
+		Vector3 angles = Vector3.zero;//creamos otro vector
 		
+
+        //hacemos la comprobación. Fijamos un umbral mínimo (xNoiseMax y yNoiseMax) para obviar tods los valores que nos lleguen menores q esos.
 		if (Mathf.Abs(x) > xNoiseMax){
 			//es valido, este x nos sirve.
 			float xForce = x > 0 ? 1 : -1;
+            //modificamos los vectores
 			angles.Set(x, 0, angles.z);
 			force.Set(xForce,0,force.z);
 		}
 
 		if (Mathf.Abs(y) > yNoiseMax){
+            //es valido, este y nos sirve.
 			float zForce = y > 0 ? 1: -1;
+            //modificamos los vectores
 			angles.Set(angles.x, 0, y);
 			force.Set(force.x, 0, zForce);
 		}
 
-		Vector3 force2 = force.normalized;
+		Vector3 force2 = force.normalized; //normalizamos el vector force, por lo que este vector nos aporta la direccion.
 
-		rb.AddForce(force2 * angles.magnitude / 300f, ForceMode.VelocityChange);
-		//rb.AddForce(force2 * angles.magnitude / 10f, ForceMode.);
-        //rb.AddForce(new Vector3(x, 0, y).normalized * 10f);
-        //transform.Translate(new Vector3(x, 0, y).normalized / 10f);
+		rb.AddForce(force2 * angles.magnitude / 300f, ForceMode.VelocityChange); //añadimos una fuerza con la direccion de force y la magnitud de angles.
+        //le aplicamos un reductivo de 300 para que no vaya tan rapido y el tipo de fuerza cambio de velocidad para menospreciar la inercia.
 
 	}
 
